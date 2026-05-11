@@ -58,7 +58,8 @@ const WORDS = [
   "restore","retreat","reviews","rewards","sadness","savings","several","sharing",
   "shelter","soldier","species","stretch","student","teacher","tonight","traffic",
   "turning","twitter","typical","upgrade","version","weather","weekend","welcome",
-  "western","without","working","through","station","station","problem","captain"
+  "western","without","working","through","station","station","problem","captain",
+  "takeshi"
 ];
 
 const VALID_GUESSES = [
