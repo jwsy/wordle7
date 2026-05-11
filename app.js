@@ -5,7 +5,7 @@
   const STATUS = { CORRECT: 'correct', PRESENT: 'present', ABSENT: 'absent' };
 
   // ── State ──────────────────────────────────────────────
-  let answer, currentRow, currentCol, currentGuess, gameOver, hardMode;
+  let answer, currentRow, currentCol, currentGuess, gameOver, hardMode, takeshiMode;
   let guessHistory = [];     // array of {word, result[]}
   let keyStatus = {};        // letter -> best status
 
@@ -15,6 +15,7 @@
   const resultModal = document.getElementById('result-modal');
   const settingsModal = document.getElementById('settings-modal');
   const hardToggle  = document.getElementById('hard-mode-toggle');
+  const takeshiToggle = document.getElementById('takeshi-mode-toggle');
   const shareBtn    = document.getElementById('share-btn');
   const playAgainBtn = document.getElementById('play-again-btn');
   const resultTitle = document.getElementById('result-title');
@@ -26,10 +27,16 @@
   function init() {
     hardMode = localStorage.getItem('hardMode') === 'true';
     hardToggle.checked = hardMode;
+    takeshiMode = localStorage.getItem('takeshiMode') === 'true';
+    takeshiToggle.checked = takeshiMode;
 
-    const day = Math.floor(Date.now() / 86400000);
-    const pool = WORDS.filter(w => w.length === WORD_LEN);
-    answer = pool[day % pool.length].toLowerCase();
+    if (takeshiMode) {
+      answer = 'takeshi';
+    } else {
+      const day = Math.floor(Date.now() / 86400000);
+      const pool = WORDS.filter(w => w.length === WORD_LEN);
+      answer = pool[day % pool.length].toLowerCase();
+    }
 
     currentRow = 0;
     currentCol = 0;
@@ -238,10 +245,13 @@
 
   playAgainBtn.addEventListener('click', () => {
     resultModal.classList.remove('open');
-    // Advance to next word
-    answer = WORDS.filter(w => w.length === WORD_LEN)[
-      (Math.floor(Date.now() / 86400000) + guessHistory.length) % WORDS.filter(w=>w.length===WORD_LEN).length
-    ].toLowerCase();
+    if (takeshiMode) {
+      answer = 'takeshi';
+    } else {
+      answer = WORDS.filter(w => w.length === WORD_LEN)[
+        (Math.floor(Date.now() / 86400000) + guessHistory.length) % WORDS.filter(w=>w.length===WORD_LEN).length
+      ].toLowerCase();
+    }
     currentRow = 0; currentCol = 0; currentGuess = ''; gameOver = false;
     guessHistory = []; keyStatus = {};
     renderBoard();
@@ -265,6 +275,19 @@
     }
     hardMode = hardToggle.checked;
     localStorage.setItem('hardMode', hardMode);
+  });
+
+  takeshiToggle.addEventListener('change', () => {
+    if (guessHistory.length > 0) {
+      takeshiToggle.checked = takeshiMode;
+      toast('Cannot change mode mid-game');
+      return;
+    }
+    takeshiMode = takeshiToggle.checked;
+    localStorage.setItem('takeshiMode', takeshiMode);
+    answer = takeshiMode ? 'takeshi' : WORDS.filter(w => w.length === WORD_LEN)[
+      Math.floor(Date.now() / 86400000) % WORDS.filter(w=>w.length===WORD_LEN).length
+    ].toLowerCase();
   });
 
   // ── Helpers ────────────────────────────────────────────
