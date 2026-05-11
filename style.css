@@ -191,6 +191,7 @@ header h1 {
   transition: background 0.2s, color 0.2s;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
 .key.wide {
