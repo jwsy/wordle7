@@ -308,6 +308,35 @@ header h1 {
   line-height: 1;
 }
 
+/* ── LaCroix theme ── */
+body.lacroix {
+  --color-correct:    #7EC8E3;
+  --color-present:    #FFB5BA;
+  --color-absent:     #C4B9D4;
+  --color-empty:      #FEFCFF;
+  --color-border:     #D5CBE8;
+  --color-text:       #3D2B4E;
+  --color-key-bg:     #E8DFF5;
+  --color-header-bg:  #FFF8FC;
+  background: #F9F5FF;
+}
+
+.lacroix-bubble {
+  position: fixed;
+  border-radius: 50%;
+  background: rgba(126, 200, 227, 0.18);
+  border: 1px solid rgba(126, 200, 227, 0.45);
+  pointer-events: none;
+  user-select: none;
+  animation: bubble-rise var(--bubble-dur, 5s) ease-in forwards;
+}
+
+@keyframes bubble-rise {
+  0%   { transform: translateY(0) translateX(0);        opacity: 0.7; }
+  50%  { transform: translateY(-50vh) translateX(8px);  opacity: 0.5; }
+  100% { transform: translateY(-105vh) translateX(-4px); opacity: 0; }
+}
+
 /* ── Confetti ── */
 .confetti-particle {
   position: fixed;
