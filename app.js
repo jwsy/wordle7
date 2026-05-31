@@ -38,8 +38,7 @@
     if (takeshiMode) {
       answer = 'takeshi';
     } else if (lacroixMode) {
-      const day = Math.floor(Date.now() / 86400000);
-      answer = LACROIX_WORDS[day % LACROIX_WORDS.length];
+      answer = LACROIX_WORDS[Math.floor(Math.random() * LACROIX_WORDS.length)];
     } else {
       const day = Math.floor(Date.now() / 86400000);
       const pool = WORDS.filter(w => w.length === WORD_LEN);
@@ -279,7 +278,7 @@
     if (takeshiMode) {
       answer = 'takeshi';
     } else if (lacroixMode) {
-      answer = LACROIX_WORDS[(Math.floor(Date.now() / 86400000) + guessHistory.length) % LACROIX_WORDS.length];
+      answer = LACROIX_WORDS[Math.floor(Math.random() * LACROIX_WORDS.length)];
     } else {
       answer = WORDS.filter(w => w.length === WORD_LEN)[
         (Math.floor(Date.now() / 86400000) + guessHistory.length) % WORDS.filter(w=>w.length===WORD_LEN).length
@@ -335,7 +334,7 @@
     if (!takeshiMode) {
       const day = Math.floor(Date.now() / 86400000);
       if (lacroixMode) {
-        answer = LACROIX_WORDS[day % LACROIX_WORDS.length];
+        answer = LACROIX_WORDS[Math.floor(Math.random() * LACROIX_WORDS.length)];
       } else {
         const pool = WORDS.filter(w => w.length === WORD_LEN);
         answer = pool[day % pool.length].toLowerCase();
