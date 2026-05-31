@@ -53,5 +53,5 @@ All game logic lives in a single IIFE in `app.js`, which reads two globals injec
 - `app.js` is wrapped in an IIFE `(() => { ... })()` — keep all new logic inside it.
 - DOM element references are cached at the top of the IIFE; don't query the DOM repeatedly inside loops.
 - The keyboard layout is hardcoded as `['QWERTYUIOP', 'ASDFGHJKL', 'ENTERZXCVBNM⌫']` in `renderKeyboard()`.
-- `WORD_LEN = 7` and `MAX_ROWS = 6` are the only constants that control game dimensions.
+- `WORD_LEN = 7` and `MAX_ROWS = 8` are the only constants that control game dimensions.
 - To change the word list, edit the `WORDS` array in `words.js`. Words must be exactly 7 characters; `ALL_VALID` is auto-derived.

@@ -1,7 +1,7 @@
 {
   "name": "Wordle 7",
   "short_name": "Wordle7",
-  "description": "Guess the 7-letter word in 6 tries",
+  "description": "Guess the 7-letter word in 8 tries",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#ffffff",
