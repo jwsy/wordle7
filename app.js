@@ -300,7 +300,7 @@
 
   // ── Settings modal ─────────────────────────────────────
   // ── Hints modal ────────────────────────────────────────
-  const HINT_WORDS = ['isolate', 'searing', 'realism'];
+  const HINT_WORDS = ['isolate', 'searing', 'realism', 'elation', 'routine'];
 
   document.getElementById('hints-btn').addEventListener('click', () => {
     const list = document.getElementById('hints-list');
