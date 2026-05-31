@@ -5,7 +5,7 @@
   const STATUS = { CORRECT: 'correct', PRESENT: 'present', ABSENT: 'absent' };
 
   // ── State ──────────────────────────────────────────────
-  let answer, currentRow, currentCol, currentGuess, gameOver, hardMode, takeshiMode;
+  let answer, currentRow, currentCol, currentGuess, gameOver, hardMode, takeshiMode, lacroixMode;
   let guessHistory = [];     // array of {word, result[]}
   let keyStatus = {};        // letter -> best status
 
@@ -14,8 +14,9 @@
   const keyboard    = document.getElementById('keyboard');
   const resultModal = document.getElementById('result-modal');
   const settingsModal = document.getElementById('settings-modal');
-  const hardToggle  = document.getElementById('hard-mode-toggle');
+  const hardToggle    = document.getElementById('hard-mode-toggle');
   const takeshiToggle = document.getElementById('takeshi-mode-toggle');
+  const lacroixToggle = document.getElementById('lacroix-mode-toggle');
   const shareBtn    = document.getElementById('share-btn');
   const playAgainBtn = document.getElementById('play-again-btn');
   const resultTitle = document.getElementById('result-title');
@@ -29,6 +30,9 @@
     hardToggle.checked = hardMode;
     takeshiMode = localStorage.getItem('takeshiMode') === 'true';
     takeshiToggle.checked = takeshiMode;
+    lacroixMode = localStorage.getItem('lacroixMode') === 'true';
+    lacroixToggle.checked = lacroixMode;
+    applyLacroix(lacroixMode);
 
     if (takeshiMode) {
       answer = 'takeshi';
@@ -248,7 +252,9 @@
   }
 
   shareBtn.addEventListener('click', () => {
-    const emoji = { correct: '🟩', present: '🟨', absent: '⬛' };
+    const emoji = lacroixMode
+      ? { correct: '🫧', present: '🩷', absent: '🤍' }
+      : { correct: '🟩', present: '🟨', absent: '⬛' };
     const grid = guessHistory.map(g => g.result.map(s => emoji[s]).join('')).join('\n');
     const text = `Wordle 7 — ${guessHistory.length}/${MAX_ROWS}\n\n${grid}`;
     if (navigator.clipboard) {
@@ -310,6 +316,43 @@
       Math.floor(Date.now() / 86400000) % WORDS.filter(w=>w.length===WORD_LEN).length
     ].toLowerCase();
   });
+
+  lacroixToggle.addEventListener('change', () => {
+    lacroixMode = lacroixToggle.checked;
+    localStorage.setItem('lacroixMode', lacroixMode);
+    applyLacroix(lacroixMode);
+  });
+
+  // ── LaCroix mode ───────────────────────────────────────
+  let bubbleInterval = null;
+
+  function applyLacroix(on) {
+    document.body.classList.toggle('lacroix', on);
+    if (on) {
+      if (!bubbleInterval) {
+        spawnBubble();
+        bubbleInterval = setInterval(spawnBubble, 700);
+      }
+    } else {
+      clearInterval(bubbleInterval);
+      bubbleInterval = null;
+      document.querySelectorAll('.lacroix-bubble').forEach(b => b.remove());
+    }
+  }
+
+  function spawnBubble() {
+    const el = document.createElement('div');
+    el.className = 'lacroix-bubble';
+    const size = 6 + Math.random() * 18;
+    el.style.width = size + 'px';
+    el.style.height = size + 'px';
+    el.style.left = (Math.random() * 98) + 'vw';
+    el.style.bottom = '-24px';
+    el.style.setProperty('--bubble-dur', (3.5 + Math.random() * 3.5) + 's');
+    el.style.opacity = 0.25 + Math.random() * 0.45;
+    document.body.appendChild(el);
+    el.addEventListener('animationend', () => el.remove(), { once: true });
+  }
 
   // ── Helpers ────────────────────────────────────────────
   function getTile(r, c) { return document.getElementById(`tile-${r}-${c}`); }
