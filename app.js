@@ -78,12 +78,12 @@
 
   function renderKeyboard() {
     keyboard.innerHTML = '';
-    const rows = ['QWERTYUIOP', 'ASDFGHJKL', 'ENTERZXCVBNMDEL'];
+    const rows = ['QWERTYUIOP', 'ASDFGHJKL', 'ENTERZXCVBNM⌫'];
     rows.forEach(rowStr => {
       const div = document.createElement('div');
       div.className = 'kb-row';
-      const keys = rowStr === 'ENTERZXCVBNMDEL'
-        ? ['ENTER', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', 'DEL']
+      const keys = rowStr === 'ENTERZXCVBNM⌫'
+        ? ['ENTER', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', '⌫']
         : rowStr.split('');
       keys.forEach(k => {
         const btn = document.createElement('button');
@@ -102,7 +102,7 @@
     if (gameOver) return;
     const k = key.toUpperCase();
     if (k === 'ENTER') { submitGuess(); return; }
-    if (k === 'DEL' || k === '⌫' || k === 'BACKSPACE') { deleteLetter(); return; }
+    if (k === '⌫' || k === 'BACKSPACE') { deleteLetter(); return; }
     if (/^[A-Z]$/.test(k) && currentCol < WORD_LEN) addLetter(k);
   }
 

@@ -14,7 +14,9 @@ button {
   --color-empty:   #ffffff;
   --color-border:  #d3d6da;
   --color-text:    #1a1a1b;
-  --color-key-bg:  #d3d6da;
+  --color-key-bg:    #d3d6da;
+  --color-key-enter: #8ab58a;
+  --color-key-del:   #c98a84;
   --color-header-bg: #ffffff;
   --tile-size: clamp(36px, 11vw, 58px);
   --font: 'Clear Sans', 'Helvetica Neue', Arial, sans-serif;
@@ -235,13 +237,14 @@ header h1 {
 }
 
 .key[data-key="ENTER"] {
-  background: #538d4e;
+  background: var(--color-key-enter);
   color: #fff;
 }
 
-.key[data-key="DEL"] {
-  background: #c0392b;
+.key[data-key="⌫"] {
+  background: var(--color-key-del);
   color: #fff;
+  font-size: clamp(0.9rem, 3vw, 1.15rem);
 }
 
 .key.correct { background: var(--color-correct); color: #fff; }
@@ -361,6 +364,8 @@ body.lacroix {
   --color-border:     #D5CBE8;
   --color-text:       #3D2B4E;
   --color-key-bg:     #E8DFF5;
+  --color-key-enter:  #82c8de;
+  --color-key-del:    #e8a4a8;
   --color-header-bg:  #FFF8FC;
   background: #F9F5FF;
 }
