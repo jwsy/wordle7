@@ -89,7 +89,8 @@ const VALID_GUESSES = [
   "turning","uniform","updated","variety","various","version","waiting","walking",
   "checked","cheaper","charged","central","carried","capable","cabinet","blocked",
   "applied","appears","another","ancient","address","achieve","absence","ability",
-  "lacroix","mbrodie","amandaa","aaronmc","spirits","useaftw","meitalm","whiskey"
+  "lacroix","mbrodie","amandaa","aaronmc","spirits","useaftw","meitalm","whiskey",
+  "cheddar","chatter","isolate","searing","realism","elation","routine"
 ].filter(w => w.length === 7);
 
 const ALL_VALID = Array.from(new Set([...WORDS, ...VALID_GUESSES].filter(w => w.length === 7)));
