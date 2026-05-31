@@ -38,8 +38,6 @@
     const urlMode = new URLSearchParams(window.location.search).get('mode');
     if (urlMode === 'lacroix') {
       answer = 'lacroix';
-      lacroixMode = true;
-      lacroixToggle.checked = true;
       applyLacroix(true);
     } else if (takeshiMode) {
       answer = 'takeshi';
