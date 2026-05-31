@@ -36,7 +36,7 @@
     applyLacroix(lacroixMode);
 
     const urlMode = new URLSearchParams(window.location.search).get('mode');
-    if (urlMode === 'lacroix') {
+    if (urlMode === 'morelacroix') {
       answer = 'lacroix';
       applyLacroix(true);
     } else if (takeshiMode) {
