@@ -234,6 +234,16 @@ header h1 {
   flex: 1.5;
 }
 
+.key[data-key="ENTER"] {
+  background: #538d4e;
+  color: #fff;
+}
+
+.key[data-key="DEL"] {
+  background: #c0392b;
+  color: #fff;
+}
+
 .key.correct { background: var(--color-correct); color: #fff; }
 .key.present { background: var(--color-present); color: #fff; }
 .key.absent  { background: var(--color-absent);  color: #fff; }
