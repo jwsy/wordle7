@@ -17,8 +17,19 @@
 
   <header>
     <h1>Wordle&nbsp;7</h1>
+    <button id="hints-btn" aria-label="Hints">💡</button>
     <button id="settings-btn" aria-label="Settings">⚙</button>
   </header>
+
+  <!-- Hints modal -->
+  <div class="modal-overlay" id="hints-modal">
+    <div class="modal">
+      <button id="close-hints" aria-label="Close">✕</button>
+      <h2>Hints</h2>
+      <p style="font-size:0.85rem;color:#888;margin-bottom:0.75rem">Try these helpful starter words:</p>
+      <div id="hints-list" style="display:flex;flex-direction:column;gap:0.5rem"></div>
+    </div>
+  </div>
 
   <div id="toast-container"></div>
 

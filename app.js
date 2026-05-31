@@ -1,7 +1,7 @@
 (() => {
   // ── Constants ──────────────────────────────────────────
   const WORD_LEN = 7;
-  const MAX_ROWS = 6;
+  const MAX_ROWS = 8;
   const STATUS = { CORRECT: 'correct', PRESENT: 'present', ABSENT: 'absent' };
   const LACROIX_WORDS = ['lacroix', 'mbrodie', 'amandaa', 'aaronmc', 'spirits', 'useaftw', 'meitalm', 'whiskey'];
 
@@ -18,6 +18,7 @@
   const hardToggle    = document.getElementById('hard-mode-toggle');
   const takeshiToggle = document.getElementById('takeshi-mode-toggle');
   const lacroixToggle = document.getElementById('lacroix-mode-toggle');
+  const hintsModal  = document.getElementById('hints-modal');
   const shareBtn    = document.getElementById('share-btn');
   const playAgainBtn = document.getElementById('play-again-btn');
   const resultTitle = document.getElementById('result-title');
@@ -295,6 +296,37 @@
   });
 
   // ── Settings modal ─────────────────────────────────────
+  // ── Hints modal ────────────────────────────────────────
+  const HINT_WORDS = ['isolate', 'searing', 'realism'];
+
+  document.getElementById('hints-btn').addEventListener('click', () => {
+    const list = document.getElementById('hints-list');
+    list.innerHTML = '';
+    HINT_WORDS.forEach(w => {
+      const el = document.createElement('div');
+      el.textContent = w.toUpperCase();
+      el.style.cssText = 'font-family:monospace;font-size:1.1rem;font-weight:700;letter-spacing:0.15em;padding:0.4rem 0.6rem;background:var(--tile-bg,#e3e3e3);border-radius:6px;text-align:center;cursor:pointer';
+      el.title = 'Click to use as guess';
+      el.addEventListener('click', () => {
+        hintsModal.classList.remove('open');
+        if (gameOver) return;
+        currentGuess = '';
+        currentCol = 0;
+        for (const ch of w.toUpperCase()) handleKey(ch);
+      });
+      list.appendChild(el);
+    });
+    hintsModal.classList.add('open');
+  });
+
+  document.getElementById('close-hints').addEventListener('click', () => {
+    hintsModal.classList.remove('open');
+  });
+
+  hintsModal.addEventListener('click', e => {
+    if (e.target === hintsModal) hintsModal.classList.remove('open');
+  });
+
   document.getElementById('settings-btn').addEventListener('click', () => {
     settingsModal.classList.add('open');
   });
