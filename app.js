@@ -3,7 +3,7 @@
   const WORD_LEN = 7;
   const MAX_ROWS = 6;
   const STATUS = { CORRECT: 'correct', PRESENT: 'present', ABSENT: 'absent' };
-  const LACROIX_WORDS = ['mbrodie', 'amandaa', 'aaronmc', 'spirits', 'useaftw', 'meitalm', 'whiskey'];
+  const LACROIX_WORDS = ['lacroix', 'mbrodie', 'amandaa', 'aaronmc', 'spirits', 'useaftw', 'meitalm', 'whiskey'];
 
   // ── State ──────────────────────────────────────────────
   let answer, currentRow, currentCol, currentGuess, gameOver, hardMode, takeshiMode, lacroixMode;
@@ -123,7 +123,7 @@
     }
 
     const allValid = ALL_VALID.map(w => w.toLowerCase());
-    if (!allValid.includes(currentGuess) && !WORDS.map(w=>w.toLowerCase()).includes(currentGuess) && !LACROIX_WORDS.includes(currentGuess)) {
+    if (!allValid.includes(currentGuess) && !WORDS.map(w=>w.toLowerCase()).includes(currentGuess)) {
       shakeRow(currentRow);
       toast('Not in word list');
       return;
