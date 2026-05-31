@@ -40,6 +40,9 @@
     if (urlMode === 'morelacroix') {
       answer = 'lacroix';
       applyLacroix(true);
+    } else if (urlMode === 'lacroix') {
+      answer = LACROIX_WORDS[Math.floor(Math.random() * LACROIX_WORDS.length)];
+      applyLacroix(true);
     } else if (takeshiMode) {
       answer = 'takeshi';
     } else if (lacroixMode) {
