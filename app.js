@@ -35,7 +35,13 @@
     lacroixToggle.checked = lacroixMode;
     applyLacroix(lacroixMode);
 
-    if (takeshiMode) {
+    const urlMode = new URLSearchParams(window.location.search).get('mode');
+    if (urlMode === 'lacroix') {
+      answer = 'lacroix';
+      lacroixMode = true;
+      lacroixToggle.checked = true;
+      applyLacroix(true);
+    } else if (takeshiMode) {
       answer = 'takeshi';
     } else if (lacroixMode) {
       answer = LACROIX_WORDS[Math.floor(Math.random() * LACROIX_WORDS.length)];
