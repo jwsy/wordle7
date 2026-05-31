@@ -3,6 +3,7 @@
   const WORD_LEN = 7;
   const MAX_ROWS = 6;
   const STATUS = { CORRECT: 'correct', PRESENT: 'present', ABSENT: 'absent' };
+  const LACROIX_WORDS = ['mbrodie', 'amandaa', 'aaronmc', 'spirits', 'useaftw', 'meitalm', 'whiskey'];
 
   // ── State ──────────────────────────────────────────────
   let answer, currentRow, currentCol, currentGuess, gameOver, hardMode, takeshiMode, lacroixMode;
@@ -36,6 +37,9 @@
 
     if (takeshiMode) {
       answer = 'takeshi';
+    } else if (lacroixMode) {
+      const day = Math.floor(Date.now() / 86400000);
+      answer = LACROIX_WORDS[day % LACROIX_WORDS.length];
     } else {
       const day = Math.floor(Date.now() / 86400000);
       const pool = WORDS.filter(w => w.length === WORD_LEN);
@@ -120,7 +124,7 @@
     }
 
     const allValid = ALL_VALID.map(w => w.toLowerCase());
-    if (!allValid.includes(currentGuess) && !WORDS.map(w=>w.toLowerCase()).includes(currentGuess)) {
+    if (!allValid.includes(currentGuess) && !WORDS.map(w=>w.toLowerCase()).includes(currentGuess) && !LACROIX_WORDS.includes(currentGuess)) {
       shakeRow(currentRow);
       toast('Not in word list');
       return;
@@ -274,6 +278,8 @@
     resultModal.classList.remove('open');
     if (takeshiMode) {
       answer = 'takeshi';
+    } else if (lacroixMode) {
+      answer = LACROIX_WORDS[(Math.floor(Date.now() / 86400000) + guessHistory.length) % LACROIX_WORDS.length];
     } else {
       answer = WORDS.filter(w => w.length === WORD_LEN)[
         (Math.floor(Date.now() / 86400000) + guessHistory.length) % WORDS.filter(w=>w.length===WORD_LEN).length
@@ -318,9 +324,23 @@
   });
 
   lacroixToggle.addEventListener('change', () => {
+    if (guessHistory.length > 0) {
+      lacroixToggle.checked = lacroixMode;
+      toast('Cannot change mode mid-game');
+      return;
+    }
     lacroixMode = lacroixToggle.checked;
     localStorage.setItem('lacroixMode', lacroixMode);
     applyLacroix(lacroixMode);
+    if (!takeshiMode) {
+      const day = Math.floor(Date.now() / 86400000);
+      if (lacroixMode) {
+        answer = LACROIX_WORDS[day % LACROIX_WORDS.length];
+      } else {
+        const pool = WORDS.filter(w => w.length === WORD_LEN);
+        answer = pool[day % pool.length].toLowerCase();
+      }
+    }
   });
 
   // ── LaCroix mode ───────────────────────────────────────
