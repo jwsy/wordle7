@@ -131,7 +131,7 @@
     }
 
     const allValid = ALL_VALID.map(w => w.toLowerCase());
-    if (!allValid.includes(currentGuess) && !WORDS.map(w=>w.toLowerCase()).includes(currentGuess)) {
+    if (!allValid.includes(currentGuess) && !WORDS.map(w=>w.toLowerCase()).includes(currentGuess) && !LACROIX_WORDS.includes(currentGuess)) {
       shakeRow(currentRow);
       toast('Not in word list');
       return;
