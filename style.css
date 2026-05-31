@@ -155,6 +155,33 @@ header h1 {
   80%      { transform: translateX(4px); }
 }
 
+/* ── Hints bar ── */
+#hints-bar {
+  width: 100%;
+  max-width: 500px;
+  padding: 0 6px 8px;
+  display: flex;
+  justify-content: center;
+}
+
+#hints-btn {
+  width: 100%;
+  padding: 12px 0;
+  border: none;
+  border-radius: 6px;
+  background: var(--color-key-bg);
+  color: var(--color-text);
+  font-family: var(--font);
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: 0.05em;
+}
+
+#hints-btn:hover {
+  filter: brightness(1.15);
+}
+
 /* ── Keyboard ── */
 #keyboard {
   width: 100%;
